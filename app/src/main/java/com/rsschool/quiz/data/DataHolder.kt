@@ -1,4 +1,4 @@
-package com.rsschool.quiz
+package com.rsschool.quiz.data
 
 object DataHolder{
     val questions = listOf(

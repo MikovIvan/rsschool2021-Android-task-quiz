@@ -3,16 +3,13 @@ package com.rsschool.quiz.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
-import android.widget.Toast
-import androidx.core.view.forEach
 import androidx.core.view.forEachIndexed
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.rsschool.quiz.Question
+import com.rsschool.quiz.data.Question
 import com.rsschool.quiz.R
 import com.rsschool.quiz.databinding.FragmentQuizBinding
 import com.rsschool.quiz.viewmodel.QuizViewModel
@@ -37,8 +34,8 @@ class FragmentQuiz : Fragment(R.layout.fragment_quiz) {
             optionFour.text = question1.answer[3].first
             optionFive.text = question1.answer[4].first
 
-            radioGroup.forEachIndexed { index, viewRB ->
-                if ((viewRB as RadioButton).text == viewModel.getAnswer(args.questionNumber)) {
+            radioGroup.forEachIndexed { _, viewRB ->
+                if ((viewRB as RadioButton).text == viewModel.getAnswer(question.text.toString())) {
                     viewRB.isChecked = true
                     nextButton.isEnabled = true
                 }
@@ -52,7 +49,7 @@ class FragmentQuiz : Fragment(R.layout.fragment_quiz) {
             radioGroup.setOnCheckedChangeListener { radioGroup, checked ->
                 nextButton.isEnabled = true
                 val answer = radioGroup.findViewById<RadioButton>(checked).text.toString()
-                viewModel.saveAnswer(args.questionNumber, answer)
+                viewModel.saveAnswer(question.text.toString(), answer)
             }
 
             nextButton.setOnClickListener {

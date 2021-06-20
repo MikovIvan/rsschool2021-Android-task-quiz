@@ -1,18 +1,20 @@
 package com.rsschool.quiz.data.repository
 
-import com.rsschool.quiz.DataHolder
-import com.rsschool.quiz.Question
+import com.rsschool.quiz.data.DataHolder
+import com.rsschool.quiz.data.Question
 
 object QuestionRepository {
     private val local = DataHolder
 
-    private val answers: MutableMap<Int, String> = mutableMapOf()
+    private val answers: MutableMap<String, String> = mutableMapOf()
 
     fun getQuestions(): List<Question> = local.questions
 
-    fun setAnswers(id: Int, answer: String) = answers.put(id, answer)
+    fun setAnswers(question: String, answer: String) = answers.put(question, answer)
 
-    fun getAnswer(id: Int): String? = answers.get(id)
+    fun getAnswer(question: String): String? = answers.get(question)
+
+    fun getAnswers(): Map<String, String> = answers
 
     private fun getRightAnswers(): List<Question> = local.questions.map { it.copy(answer = it.answer.filter { it.second }) }
 

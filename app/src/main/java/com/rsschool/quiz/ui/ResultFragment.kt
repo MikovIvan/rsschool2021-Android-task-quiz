@@ -26,13 +26,12 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
 
             share.setOnClickListener {
                 val intent = Intent(Intent.ACTION_SEND)
-                intent.putExtra(Intent.EXTRA_TEXT, """
-                    ${score.text}
-                    
-                    
+                intent.putExtra(Intent.EXTRA_TEXT, """${score.text}
+                    ${viewModel.sendAnswers()}        
                 """.trimIndent()
                 )
-                intent.setType("text/plain")
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Quiz results")
+                intent.type = "text/plain"
                 startActivity(intent)
             }
 
