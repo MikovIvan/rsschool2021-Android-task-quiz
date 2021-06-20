@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentQuiz">
+
+    <fragment
+        android:id="@+id/fragmentQuiz"
+        android:name="com.rsschool.quiz.ui.FragmentQuiz"
+        android:label="{question_number}"
+        tools:layout="@layout/fragment_quiz">
+        <action
+            android:id="@+id/action_fragmentQuiz_self"
+            app:destination="@id/fragmentQuiz2">
+            <argument
+                android:name="question_number"
+                app:argType="integer" />
+        </action>
+        <argument
+            android:name="question_number"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentQuiz2"
+        android:name="com.rsschool.quiz.ui.FragmentQuiz"
+        android:label="{question_number}"
+        tools:layout="@layout/fragment_quiz">
+        <action
+            android:id="@+id/action_fragmentQuiz_self"
+            app:destination="@id/fragmentQuiz2">
+            <argument
+                android:name="question_number"
+                app:argType="integer" />
+        </action>
+        <argument
+            android:name="question_number"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_fragmentQuiz2_to_resultFragment"
+            app:destination="@id/resultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.rsschool.quiz.ui.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" >
+        <action
+            android:id="@+id/action_resultFragment_to_fragmentQuiz"
+            app:destination="@id/fragmentQuiz"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+    </fragment>
+</navigation>
