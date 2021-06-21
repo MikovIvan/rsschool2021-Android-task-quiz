@@ -3,7 +3,6 @@ package com.rsschool.quiz.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.RadioButton
-import androidx.core.view.forEach
 import androidx.core.view.forEachIndexed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -63,5 +62,10 @@ class FragmentQuiz : Fragment(R.layout.fragment_quiz) {
                 findNavController().navigateUp()
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        //использовал библиотеку Кирилла Розова, переменная зануляется под капотом
     }
 }

@@ -47,4 +47,9 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        //использовал библиотеку Кирилла Розова, переменная зануляется под капотом
+    }
+
 }
