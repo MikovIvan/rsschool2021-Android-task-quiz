@@ -2,11 +2,11 @@ package com.rsschool.quiz.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
@@ -16,6 +16,7 @@ import com.rsschool.quiz.R
 import com.rsschool.quiz.databinding.ActivityMainBinding
 import com.rsschool.quiz.viewmodel.QuizViewModel
 
+const val ARG_QUESTION_NUMBER = "question_number"
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,40 +36,30 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController)
 
-//        val typedValue = TypedValue()
-//        val currentTheme = this.theme
-//        currentTheme?.resolveAttribute(android.R.attr.statusBarColor, typedValue, true)
-//        window?.statusBarColor = typedValue.data
-
         navController.addOnDestinationChangedListener { _, _, arg ->
             supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_chevron_left_24)
-            supportActionBar?.title = "Question ${arg?.getInt("question_number")?.plus(1)}"
-            when (arg?.getInt("question_number")) {
+            supportActionBar?.title = "Question ${arg?.getInt(ARG_QUESTION_NUMBER)?.plus(1)}"
+            when (arg?.getInt(ARG_QUESTION_NUMBER)) {
                 0 -> {
                     viewBinding.toolbar.visibility = View.VISIBLE
-                    window.statusBarColor = getColor(R.color.deep_orange_100_dark)
-                    viewBinding.toolbar.setBackgroundColor(getColor(R.color.deep_orange_100))
                     setTheme(R.style.Theme_Quiz_First)
+                    setToolbarAndStatusBarColor()
                 }
                 1 -> {
-                    window.statusBarColor = getColor(R.color.yellow_100_dark)
-                    viewBinding.toolbar.setBackgroundColor(getColor(R.color.yellow_100))
                     setTheme(R.style.Theme_Quiz_Second)
+                    setToolbarAndStatusBarColor()
                 }
                 2 -> {
-                    window.statusBarColor = getColor(R.color.light_green_100_dark)
-                    viewBinding.toolbar.setBackgroundColor(getColor(R.color.light_green_100))
                     setTheme(R.style.Theme_Quiz_Third)
+                    setToolbarAndStatusBarColor()
                 }
                 3 -> {
-                    window.statusBarColor = getColor(R.color.cyan_100_dark)
-                    viewBinding.toolbar.setBackgroundColor(getColor(R.color.cyan_100))
                     setTheme(R.style.Theme_Quiz_Fourth)
+                    setToolbarAndStatusBarColor()
                 }
                 4 -> {
-                    window.statusBarColor = getColor(R.color.deep_purple_100_dark)
-                    viewBinding.toolbar.setBackgroundColor(getColor(R.color.deep_purple_100))
                     setTheme(R.style.Theme_Quiz_Fifth)
+                    setToolbarAndStatusBarColor()
                 }
                 else -> {
                     viewBinding.toolbar.visibility = View.GONE
@@ -95,6 +86,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         onSupportNavigateUp()
+    }
+
+    private fun setToolbarAndStatusBarColor() {
+        val typedValue = TypedValue()
+        val currentTheme = this.theme
+        currentTheme?.resolveAttribute(android.R.attr.statusBarColor, typedValue, true)
+        window?.statusBarColor = typedValue.data
+        currentTheme?.resolveAttribute(android.R.attr.colorPrimary, typedValue, true)
+        viewBinding.toolbar.setBackgroundColor(typedValue.data)
     }
 
 }

@@ -30,7 +30,7 @@ class ResultFragment : Fragment(R.layout.fragment_result) {
                     ${viewModel.sendAnswers()}        
                 """.trimIndent()
                 )
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Quiz results")
+                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.quiz_results))
                 intent.type = "text/plain"
                 startActivity(intent)
             }
